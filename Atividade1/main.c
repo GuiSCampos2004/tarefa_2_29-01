@@ -6,15 +6,15 @@ const uint LED1 = 11;
 const uint LED2 = 12;
 const uint LED3 = 13;
 
-uint identificador_atual = LED2;
-uint identificador_passado = LED1;
+uint identificador_atual = LED2;  //Variaveis que identificam qual led deve
+uint identificador_passado = LED1;//estar ligado e qual deve ser desligado
+//----------------------------------------------------------------------------------------------
+bool repeating_timer_callback(struct repeating_timer *t) { //Rotina de repetição
 
-bool repeating_timer_callback(struct repeating_timer *t) {
-
-    gpio_put(identificador_passado, 0);
+    gpio_put(identificador_passado, 0);//Desliga o led que estava ligado até então
 
 
-    switch(identificador_passado){
+    switch(identificador_passado){//Identifica o proximo led segundo a ordem
         case LED1:
             identificador_atual = LED2;
             break;
@@ -29,15 +29,16 @@ bool repeating_timer_callback(struct repeating_timer *t) {
     }
 
     
-    gpio_put(identificador_atual, 1);
-    identificador_passado = identificador_atual;
+    gpio_put(identificador_atual, 1);//Liga o devido led
+    identificador_passado = identificador_atual;//Identifica o proximo led a ser desligado
 
     return true;
 }
-
-
+//----------------------------------------------------------------------------------------------
 int main()
 {
+    //----------------------------------------------------------------------------------------------------------
+    //Inicialização de portas e variaveis
     stdio_init_all();
 
     gpio_init(LED1);
@@ -51,11 +52,11 @@ int main()
     gpio_put(LED3, 0);
 
     struct repeating_timer timer;
-    int mensagem = 3;
+    absolute_time_t proximo_tempo = get_absolute_time(); //Variavel para controlar a "impressão" an tela
+    int mensagem = 3; //Variavel para imprimir mensagens na ordem correta
+    //----------------------------------------------------------------------------------------------------------
 
-    add_repeating_timer_ms(3000, repeating_timer_callback, NULL, &timer);
-
-    absolute_time_t proximo_tempo = get_absolute_time();
+    add_repeating_timer_ms(3000, repeating_timer_callback, NULL, &timer);//Inicio da rotina de repetição
 
     while (true) {
         if (time_reached(proximo_tempo)) {
@@ -76,8 +77,8 @@ int main()
                     break;
 
             }
-            proximo_tempo = delayed_by_us(proximo_tempo, 1000000);
+            proximo_tempo = delayed_by_us(proximo_tempo, 1000000);//Define que a proxima "impressão" será feita daqui 1s
         }
-        sleep_ms(1);
+        sleep_ms(1); //Intervenção ara que o while(1) não consuma muito
     }
 }
