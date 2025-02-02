@@ -78,6 +78,6 @@ int main()
             }
             proximo_tempo = delayed_by_us(proximo_tempo, 1000000);
         }
-    sleep_ms(1);
+        sleep_ms(1);
     }
 }
