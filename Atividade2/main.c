@@ -72,6 +72,6 @@ int main()
     gpio_set_irq_enabled_with_callback(BOT, GPIO_IRQ_EDGE_FALL, true, &gpio_irq_handler); //Inicialização da rotina de interrupção
 
     while (true) {
-        sleep_ms(1); //
+        sleep_ms(1); //Intervenção ara que o while(1) não consuma muito
     }
 }
