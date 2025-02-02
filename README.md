@@ -1,4 +1,4 @@
-# tarefa_2_29-01
+# tarefa 2 29/01
 
 ## Atividade 1
 Esta atividade não exige interação do usuário, a mesma vai simular um "semáforo" utilizando LED's coloridos (normalmente a sequência de cores de um semáforo é vermelho - verde - amarelo, mas a ordem apresentada na atividade foi requisitada como vermelho - amarelo - verde). Além dos LED's, também é escrito na porta serial o quanto de tempo ainda falta para a próxima troca de cores.
